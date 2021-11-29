@@ -17,7 +17,7 @@ import { CookieService } from 'ngx-cookie-service';
     LoginComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatCardModule,
