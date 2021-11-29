@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ssr-cookies2';
+
+  constructor(private auth: AuthService){}
+
+  login() {
+    this.auth.login();
+  }
+
+  logout() {
+    this.auth.logout()
+  }
+
+  isLogin(): Boolean {
+    return this.auth.isLogin();
+  }
 }
