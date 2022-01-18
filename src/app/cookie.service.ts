@@ -1,7 +1,6 @@
-import { Request } from 'express';
-import { REQUEST } from '@nguniversal/express-engine/tokens';
 import { Inject, Injectable, Optional, PLATFORM_ID } from '@angular/core';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { REQUEST_PROVIDER_TOKEN, RequestProvider } from './request.provider';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ export class CookieService {
     @Inject(DOCUMENT) private document: Document,
     // Get the `PLATFORM_ID` so we can check if we're in a browser.
     @Inject(PLATFORM_ID) private platformId: string,
-    @Optional() @Inject(REQUEST) private request: Request
+    @Optional() @Inject(REQUEST_PROVIDER_TOKEN) private request: RequestProvider
   ) {
     this.documentIsAccessible = isPlatformBrowser(this.platformId);
   }
@@ -64,7 +63,7 @@ export class CookieService {
   check(name: string): boolean {
     name = encodeURIComponent(name);
     const regExp: RegExp = CookieService.getCookieRegExp(name);
-    const cookieData = this.documentIsAccessible ? this.document.cookie : this.request?.headers.cookie
+    const cookieData = this.documentIsAccessible ? this.document.cookie : this.request?.headers?.cookie
 
     return regExp.test(cookieData || '');
   }
@@ -83,7 +82,7 @@ export class CookieService {
       name = encodeURIComponent(name);
 
       const regExp: RegExp = CookieService.getCookieRegExp(name);
-      const cookieData = this.documentIsAccessible ? this.document.cookie : this.request?.headers.cookie
+      const cookieData = this.documentIsAccessible ? this.document.cookie : this.request?.headers?.cookie
       const result:RegExpExecArray | null = regExp.exec(cookieData || '');
 
       return result && result[1] ? CookieService.safeDecodeURIComponent(result[1]) : '';

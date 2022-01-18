@@ -9,7 +9,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from './cookie.service';
+import { expressRequestProvider } from './express-request.provider';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,10 @@ import { CookieService } from 'ngx-cookie-service';
     MatInputModule,
     MatButtonModule
   ],
-  providers: [CookieService],
+  providers: [
+    CookieService,
+    expressRequestProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
